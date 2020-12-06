@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_031346) do
+ActiveRecord::Schema.define(version: 2020_12_06_222659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "yelp_id"
+    t.string "name"
+    t.string "image_url"
+    t.boolean "is_closed"
+    t.string "url"
+    t.integer "latitude"
+    t.integer "longitude"
+    t.string "address"
+    t.string "phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "restaurant_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -22,4 +47,6 @@ ActiveRecord::Schema.define(version: 2020_12_03_031346) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "reviews", "restaurants"
+  add_foreign_key "reviews", "users"
 end

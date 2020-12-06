@@ -3,11 +3,11 @@
 one:
   rating: 1
   content: MyText
-  belongs_to: 
-  belongs_to: 
+  user: one
+  restaurant: one
 
 two:
   rating: 1
   content: MyText
-  belongs_to: 
-  belongs_to: 
+  user: two
+  restaurant: two
