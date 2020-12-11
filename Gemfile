@@ -44,3 +44,5 @@ gem 'jwt', '~> 2.2'
 
 gem 'dotenv-rails', '~> 2.7'
 
+gem 'http'
+
