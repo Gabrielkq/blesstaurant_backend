@@ -5,7 +5,7 @@ class RestaurantsController < ApplicationController
      response = YelpSearch.new("#{search_term}")
      array = response.results["businesses"]
         if array.nil?
-            array = []
+            array = [none: "no results found"]
         end
      render json: {restaurants: array} 
     end
@@ -20,9 +20,31 @@ class RestaurantsController < ApplicationController
            if obj["error"]
                render json: {error: "redirect"}
            end
-        render json: {selected_restaurant: obj} 
+        render json: {yelp_restaurant: obj} 
      end
 
+    def create
+        restaurant = Restaurant.create(restaurant_params)
+        if restaurant.valid?
+            render json: restaurant
+        else
+            render json: { errors: restaurant.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
 
+    def find
+        restaurant = Restaurant.find_by(yelp_id: request.headers['Yelp-Id'])
+        if restaurant.nil?
+            render json: {restaurant_id: 0}
+        else
+            render json: {restaurant_id: restaurant.id}
+        end
+    end
+
+
+private
+    def restaurant_params
+        params.permit(:yelp_id, :name)
+    end
 
 end
