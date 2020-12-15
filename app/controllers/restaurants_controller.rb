@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
      search_term = request.headers['Search']
      response = YelpSearch.new("#{search_term}")
      array = response.results["businesses"]
-        if array.nil?
+        if array.nil? || array.length == 0
             array = [none: "no results found"]
         end
      render json: {restaurants: array} 
