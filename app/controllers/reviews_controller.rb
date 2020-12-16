@@ -9,6 +9,15 @@ class ReviewsController < ApplicationController
         end
     end
 
+    def restaurant_reviews
+        reviews = Review.where(restaurant_id: request.headers['Rest-id'])
+        if reviews.nil?
+            render json: []
+        else
+            render json: ReviewSerializer.new(reviews).to_serialized_json
+        end
+    end
+
 private
 
     def review_params
