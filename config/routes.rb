@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :reviews
   resources :users
 
+  post "/restaurants", to: "restaurants#create"
   post "/login", to: "login#create"
   get "/auto_login", to: "login#auto_login"
   get "/search", to: "restaurants#search"

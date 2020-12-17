@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
     def create
         review = Review.create(review_params)
         if review.valid?
-            render json: review
+            render json: ReviewSerializer.new(review).to_serialized_json
         else
             render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
         end
@@ -17,6 +17,13 @@ class ReviewsController < ApplicationController
             render json: ReviewSerializer.new(reviews).to_serialized_json
         end
     end
+
+    def destroy
+        review = Review.find(params[:id])
+        review.destroy
+        render json: {}, status: 200
+    end
+    
 
 private
 
