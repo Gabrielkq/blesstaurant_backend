@@ -40,8 +40,6 @@ class RestaurantsController < ApplicationController
             render json: {restaurant_id: restaurant.id}
         end
     end
-
-
 private
     def restaurant_params
         params.permit(:yelp_id, :name)

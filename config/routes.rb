@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  resources :reviews
-  resources :users
-
+  
+  delete "reviews/:id", to: "reviews#destroy"
+  post "reviews", to: "reviews#create"
+  post "/users", to: "users#create"
   post "/restaurants", to: "restaurants#create"
   post "/login", to: "login#create"
   get "/auto_login", to: "login#auto_login"
