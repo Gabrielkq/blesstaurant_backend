@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  #resources taken out 
   
   delete "reviews/:id", to: "reviews#destroy"
   post "reviews", to: "reviews#create"
